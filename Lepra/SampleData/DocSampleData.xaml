@@ -1,0 +1,15 @@
+﻿<Lepra:Doc xmlns:Lepra="using:Lepra" body="Sed parturient vivamus facilisi dis" comments_count="32" can_ban="True" created="90" can_moderate="False" can_edit="False" can_delete="True" golden="63" has_acl="66" in_interests="True" id="60" in_favourites="False" rating="75" unread_comments_count="26" vote_weight="45">
+	<Lepra:Doc.attributes>
+		<Lepra:Attributes description="Mus ante nec" enabled_latvian="Leo lorem blandit" favourites_count="Habitant fermentum dictum diam nulla" name="Facilisis non morbi commodo" render_type="Arcu cursus"/>
+	</Lepra:Doc.attributes>
+	<Lepra:Doc.domain>
+		<Lepra:Domain created="32" description="Curabitur phasellus aenean maecenas nam" id="28" name="Class mauris aliquam consequat praesent" readers_count="18" subscribed="True" url="Curae accumsan donec">
+			<Lepra:Domain.attributes>
+				<Lepra:Attributes description="Dignissim dictumst" enabled_latvian="Nullam bibendum cras convallis" favourites_count="Eleifend duis nunc adipiscing" name="Aptent integer quisque" render_type="Auctor elementum vestibulum"/>
+			</Lepra:Domain.attributes>
+		</Lepra:Domain>
+	</Lepra:Doc.domain>
+	<Lepra:Doc.user>
+		<Lepra:User active="83" deleted="65" gender="Amet congue est etiam" id="25" karma="91" login="Faucibus vestibulum hac aliquet" rank="Vestibulum aliquam fusce"/>
+	</Lepra:Doc.user>
+</Lepra:Doc>

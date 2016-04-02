@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="Lepra.IndexPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lepra"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="Page" mc:Ignorable="d">
+  <Page.Resources>
+    <DataTemplate x:Name="DataTemplate1">
+      <Border MinHeight="100" BorderBrush="#FFCCCCCC" BorderThickness="1" Margin="24">
+        <WebView local:WebViewExtension.HTML="{Binding Body}" Margin="12" />
+      </Border>
+    </DataTemplate>
+  </Page.Resources>
+
+  <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer>
+      <ItemsControl ItemsSource="{Binding Items, ElementName=Page}" ItemTemplate="{StaticResource DataTemplate1}" />
+    </ScrollViewer>
+  </Grid>
+</Page>
