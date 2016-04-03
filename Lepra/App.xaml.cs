@@ -35,8 +35,6 @@ namespace Lepra
             this.Suspending += OnSuspending;
             
             DataService = new DataService();
-            var authToken = Convert.ToString(ApplicationData.Current.LocalSettings.Values["AuthToken"]);
-            DataService.SetAuthToken(authToken);
         }
 
         /// <summary>
@@ -80,10 +78,10 @@ namespace Lepra
                 // configuring the new page by passing required information as a navigation
                 // parameter
 
-                //if(!DataService.IsAuthorised)
+                if(!DataService.IsAuthorised)
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                //else
-                  //  rootFrame.Navigate(typeof(IndexPage), e.Arguments);
+                else
+                    rootFrame.Navigate(typeof(IndexPage), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();

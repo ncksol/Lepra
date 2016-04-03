@@ -27,7 +27,7 @@ namespace Lepra
     public sealed partial class IndexPage : Page, INotifyPropertyChanged
     {
         private DataService _dataService;
-        private ObservableCollection<Doc> _items;
+        private ObservableCollection<TopicModel> _items;
 
         public IndexPage()
         {
@@ -36,7 +36,7 @@ namespace Lepra
             _dataService = ((App)App.Current).DataService;
         }
 
-        public ObservableCollection<Doc> Items
+        public ObservableCollection<TopicModel> Items
         {
             get { return _items; }
             set
@@ -53,11 +53,9 @@ namespace Lepra
         {
             base.OnNavigatedTo(e);
 
-            var indexData = await _dataService.GetIndexPage();
+            var topicModels = await _dataService.GetIndexPage();
 
-            if(indexData.Status != "OK") return;
-
-            Items = new ObservableCollection<Doc>(indexData.Docs);
+            Items = new ObservableCollection<TopicModel>(topicModels);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

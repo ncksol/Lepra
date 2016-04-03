@@ -20,6 +20,23 @@ namespace Lepra
         {
             _httpBaseProtocolFilter = new HttpBaseProtocolFilter();
             _httpClient = new HttpClient(_httpBaseProtocolFilter);
+
+            var cookiesString = ApplicationData.Current.LocalSettings.Values["AuthCookies"] as string;
+            if (cookiesString != null)
+            {
+                var authToken = ApplicationData.Current.LocalSettings.Values["AuthToken"] as string;
+                _authToken = authToken;
+
+                var cookiesDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(cookiesString);
+
+                foreach (var keyValuePair in cookiesDictionary)
+                {
+                    var cookie = new HttpCookie(keyValuePair.Key, "leprosorium.ru", "/");
+                    cookie.Value = keyValuePair.Value;
+
+                    _httpBaseProtocolFilter.CookieManager.SetCookie(cookie);
+                }
+            }
         }
 
         public bool IsAuthorised => !string.IsNullOrEmpty(_authToken);
@@ -37,13 +54,17 @@ namespace Lepra
             var authResult = await ConvertResponseToData<Authenticate>(httpResponseMessage);
 
             var cookies = _httpBaseProtocolFilter.CookieManager.GetCookies(new Uri("https://leprosorium.ru"));
-            ApplicationData.Current.LocalSettings.Values["AuthCookies"] = cookies;
+
+            var cookiesDictionary = cookies.ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
+
+            ApplicationData.Current.LocalSettings.Values["AuthCookies"] = JsonConvert.SerializeObject(cookiesDictionary);
+            ApplicationData.Current.LocalSettings.Values["AuthToken"] = authResult.CsrfToken;
 
             _authToken = authResult.CsrfToken;
             return authResult;
         }
 
-        public async Task<Index> GetIndexPage(int offset = 0)
+        public async Task<List<TopicModel>> GetIndexPage(int offset = 0)
         {
             var subsContent = new HttpFormUrlEncodedContent(new[]
                     {
@@ -59,14 +80,12 @@ namespace Lepra
 
             var getIndexResult = await ConvertResponseToData<Index>(httpResponseMessage);
 
-            return getIndexResult;
-        }
+            if(getIndexResult.status != "OK")
+                throw new InvalidOperationException(getIndexResult.errors.FirstOrDefault().Code);
 
-        public void SetAuthToken(string authToken)
-        {
-            _authToken = authToken;
+            return getIndexResult.docs.Select(x => new TopicModel(x)).ToList();
         }
-
+        
         private async Task<T> ConvertResponseToData<T>(HttpResponseMessage message)
         {
             var resultString = await message.Content.ReadAsStringAsync();

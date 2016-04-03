@@ -14,6 +14,7 @@ namespace Lepra
         private static string _htmlFragment =
                 "<html><head><script type='text/javascript'>" +
                 "function getDocHeight(){ " +
+                "  document.body.style.overflow = 'hidden';" +
                 "  var D = document;" +
                 "  var doubled = Math.max(" +
                 "    Math.max(D.body.scrollHeight, D.documentElement.scrollHeight)," +
@@ -22,7 +23,7 @@ namespace Lepra
                 "  window.external.notify(doubled.toString());" +
                 "  return doubled.toString();" +
                 "};" +
-                "</script></head><body>{0}</body></html>";
+                "</script></head><body>";
 
         public static string GetHTML(DependencyObject obj)
         {

@@ -86,10 +86,9 @@ namespace Lepra
 
     public class Doc
     {
-        [JsonProperty("body")]
-        public string Body { get; set; }
-
+        public string body { get; set; }
         public int rating { get; set; }
+        public User user { get; set; }
         public Domain domain { get; set; }
         public int unread_comments_count { get; set; }
         public object vote_enabled { get; set; }
@@ -103,7 +102,6 @@ namespace Lepra
         public bool can_ban { get; set; }
         public object tags { get; set; }
         public bool can_moderate { get; set; }
-        public User user { get; set; }
         public bool can_delete { get; set; }
         public object can_unpublish { get; set; }
         public bool can_edit { get; set; }
@@ -117,25 +115,20 @@ namespace Lepra
 
     public class Index
     {
-        [JsonProperty("status")]
-        public string Status { get; set; }
-
-        [JsonProperty("docs")]
-        public IList<Doc> Docs { get; set; }
-
+        public string status { get; set; }
+        public IList<Doc> docs { get; set; }
         public Domain domain
         {
             get;
             set;
         }
-
         public User user
         {
             get;
             set;
         }
-
         public int offset { get; set; }
+        public IList<Error> errors { get; set; }
     }
 
 }
